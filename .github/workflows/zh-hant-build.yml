@@ -17,6 +17,8 @@ jobs:
             -destination 'platform=macOS' \
             CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=NO DEVELOPMENT_TEAM="" \
             build | tail -20
+      - name: Ad-hoc sign whole bundle
+        run: codesign --force --deep --sign - build/Build/Products/Release/*.app
       - name: Zip app
         run: cd build/Build/Products/Release && ditto -c -k --keepParent *.app ../../../../BoringNotch-zh-Hant.zip
       - uses: actions/upload-artifact@v4
